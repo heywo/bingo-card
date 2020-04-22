@@ -1,0 +1,77 @@
+<!DOCYTPE html>
+<html>
+  <head>
+    <link rel="stylesheet" type="text/css" href="css/main.css" />
+    <title>BINGO</title>
+  </head>
+  <body>
+    <div class="container">
+      <div style="width: 100%;">
+        <img style="margin: auto; display: block;" src="images/logo.svg" />
+      </div>
+      <div class="game-container">
+        <div class="row">
+          <div class="column">
+            <div class="header-card">
+              <div class="card-text">
+                B
+              </div>
+            </div>
+          </div>
+          <div class="column">
+            <div class="header-card">
+              <div class="card-text">
+                I
+              </div>
+            </div>
+          </div>
+          <div class="column">
+            <div class="header-card">
+              <div class="card-text">
+                N
+              </div>
+            </div>
+          </div>
+          <div class="column">
+            <div class="header-card">
+              <div class="card-text">
+                G
+              </div>
+            </div>
+          </div>
+          <div class="column">
+            <div class="header-card">
+              <div class="card-text">
+                O
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          class="row"
+          data-tilt
+          data-tilt-max="7"
+          data-tilt-speed="100"
+          data-tilt-perspective="1000"
+          data-tilt-reverse="false"
+          data-tilt-reset="false"
+        >
+          <div id="col-0" class="column"></div>
+          <div id="col-1" class="column"></div>
+          <div id="col-2" class="column"></div>
+          <div id="col-3" class="column"></div>
+          <div id="col-4" class="column"></div>
+        </div>
+      </div>
+    </div>
+    <div id="marquee">
+      <div id="marquee-text">BINGO LEADERBOARD:</div>
+    </div>
+    <script type="text/javascript" src="js/vanilla-tilt.min.js"></script>
+    <script type="text/javascript" src="js/points.js"></script>
+    <script type="text/javascript" src="js/bingo.js"></script>
+    <script type="text/javascript">
+      window.onload = initializeGameBoard;
+    </script>
+  </body>
+</html>
