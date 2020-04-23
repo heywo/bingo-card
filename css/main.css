@@ -9,7 +9,6 @@
 }
 
 .game-wrapper {
-  width: 50%;
   margin: auto;
   padding-top: 10px;
   padding-bottom: 40px;
@@ -183,7 +182,6 @@
   position: absolute;
   height: 64px;
   width: 64px;
-  background-image: url(../images/reed_head.png);
   animation-name: wag;
   animation-duration: 3s;
   animation-iteration-count: infinite;
