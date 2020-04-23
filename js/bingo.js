@@ -7,8 +7,9 @@ const POINTS = [];
 const POINTMAX = 1;
 const IMG_PREFIX = "images/image_";
 const IMG_FREE = "images/free_spot.png";
+const HEAD_COUNT = 4;
 
-const MARQUEE_ENABLED = true;
+const MARQUEE_ENABLED = false;
 const MOUSETRAIL_ENABLED = true;
 
 var mouse = {
@@ -27,6 +28,8 @@ var Dot = function () {
   this.node = (function () {
     var n = document.createElement("div");
     n.className = "trail";
+    const imgNumber = getRandomNumber(1, HEAD_COUNT);
+    n.style.backgroundImage = "url('images/head_" + imgNumber + ".png')";
     document.body.appendChild(n);
     return n;
   })();
