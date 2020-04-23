@@ -4,7 +4,12 @@ const COLUMNS = 5;
 const IMAGECOUNT = 24;
 const USEDIMAGES = [];
 const POINTS = [];
-const POINTMAX = 6;
+const POINTMAX = 1;
+const IMG_PREFIX = "images/image_";
+const IMG_FREE = "images/free_spot.png";
+
+const MARQUEE_ENABLED = true;
+const MOUSETRAIL_ENABLED = true;
 
 var mouse = {
   x: 0,
@@ -12,8 +17,8 @@ var mouse = {
 };
 
 const MARQUEEMESSAGES = [
-  "LEADERBOARD: 1. Damon Tindall (2), 2. Anthony Burkeen (1), 3. Mark Ohrin (1)",
-  "DAMON IS LEADING? REALLY?",
+  "AN EXAMPLE MARQUEE MESSAGE",
+  "ANOTHER EXAMPLE MARQUEE MESSAGE",
 ];
 
 var Dot = function () {
@@ -53,8 +58,9 @@ var initializeGameBoard = function () {
   }
 
   renderGameBoard();
-  initializeMarquee();
-  initializeMouseTrail();
+
+  if (MARQUEE_ENABLED) initializeMarquee();
+  if (MOUSETRAIL_ENABLED) initializeMouseTrail();
 
   animateMouseTrail();
 };
@@ -103,9 +109,7 @@ var hookupListeners = function () {
 
 var renderGameBoard = function () {
   for (var i = 0; i < COLUMNS; i++) {
-    let column = $("#col-" + i);
-
-    addCard(i, column, GAMEBOARD[i]);
+    addCard(i);
   }
 };
 
@@ -116,41 +120,33 @@ var drawMouseTrail = function () {
   POINTS.forEach(function (dot, index, dots) {
     var nextDot = dots[index + 1] || dots[0];
 
-    dot.x = x + 10;
-    dot.y = y + 10;
+    dot.x = x;
+    dot.y = y;
     dot.draw();
     x += (nextDot.x - dot.x) * 0.6;
     y += (nextDot.y - dot.y) * 0.6;
   });
 };
 
-var addCard = function (rowNumber, column, numbers) {
-  //   var wait = 0;
-
-  // TODO - sometime it would be fun to bring this in in some sort of pattern
-  // numbers.forEach(function (obj, index, collection) {
-  //   setTimeout(function () {
-  //     createCard(index, rowNumber, column, obj.number);
-
-  //     if (index == numbers.length - 1) {
-  //       hookupListeners();
-  //     }
-  //   }, index * 150);
-  // });
-
-  for (var i = 0; i < numbers.length; i++) {
-    createCard(i, rowNumber, column, numbers[i].number);
+var addCard = function (rowNumber) {
+  for (var i = 0; i < COLUMNS; i++) {
+    const number = GAMEBOARD[i][rowNumber];
+    createCard(i, rowNumber, number.number);
   }
 
   hookupListeners();
 };
 
-var createCard = function (rowNumber, columnNumber, column, number) {
+var createCard = function (rowNumber, columnNumber, number) {
+  let board = document.getElementById("board");
   let cardElement = document.createElement("div");
+  let imgElement = document.createElement("img");
+  imgElement.src = "";
   cardElement.id = "card-" + rowNumber + "-" + columnNumber;
   cardElement.className = number === "FREE" ? "card new free" : "card new";
   cardElement.innerHTML = number;
-  column.appendChild(cardElement);
+  cardElement.append(imgElement);
+  board.appendChild(cardElement);
 };
 
 var onClickCard = function (element) {
@@ -164,11 +160,13 @@ var toggleChip = function (card, row, column) {
 
   GAMEBOARD[row][column].selected = selected;
 
+  const img = card.children[0];
+
   if (selected) {
     let isFree = GAMEBOARD[row][column].number === "FREE";
 
     if (isFree) {
-      card.style.backgroundImage = 'url("images/chips/piece_free_chip.png")';
+      img.src = IMG_FREE;
     } else {
       let imgNumber = getRandomNumber(1, IMAGECOUNT);
       while (
@@ -181,11 +179,10 @@ var toggleChip = function (card, row, column) {
       USEDIMAGES.push(imgNumber);
       GAMEBOARD[row][column].imageNumber = imgNumber;
 
-      card.style.backgroundImage =
-        'url("images/chips/piece_chip_' + imgNumber + '.png")';
+      img.src = IMG_PREFIX + imgNumber + ".png";
     }
   } else {
-    card.style.backgroundImage = "";
+    img.src = "";
     let index = USEDIMAGES.findIndex(
       (a) => a === GAMEBOARD[row][column].imageNumber
     );
