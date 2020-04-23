@@ -1,0 +1,41 @@
+<!DOCYTPE html>
+<html>
+  <head>
+    <link rel="stylesheet" type="text/css" href="css/main.css" />
+    <title>BINGO</title>
+  </head>
+  <body>
+    <div class="container">
+      <div style="width: 100%;">
+        <img style="margin: auto; display: block;" src="images/logo.svg" />
+      </div>
+      <div class="game-wrapper">
+        <div class="game-container" id="board">
+          <div class="header-card">
+            B
+          </div>
+          <div class="header-card">
+            I
+          </div>
+          <div class="header-card">
+            N
+          </div>
+          <div class="header-card">
+            G
+          </div>
+          <div class="header-card">
+            O
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="marquee">
+      <div id="marquee-text"></div>
+    </div>
+    <script type="text/javascript" src="js/points.js"></script>
+    <script type="text/javascript" src="js/bingo.js"></script>
+    <script type="text/javascript">
+      window.onload = initializeGameBoard;
+    </script>
+  </body>
+</html>
